@@ -1,2 +1,2 @@
-# computer_architecture
+# コンピュータ・アーキテクチャ
 CPU・OSの自作をはじめ、低レイヤのお勉強用リポジトリ
