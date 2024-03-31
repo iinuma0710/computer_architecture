@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 ENV RISCV=/opt/riscv
 ENV PATH=$RISCV/bin:$PATH
-ENV MAKEFLAGS=-j4
+ENV MAKEFLAGS=-j16
 WORKDIR $RISCV
 
 # 基本ツールのインストール

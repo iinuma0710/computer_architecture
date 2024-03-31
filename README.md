@@ -36,7 +36,7 @@ Icarus Verilog と GTKWave をインストールします。
 $ sudo apt update
 $ sudo apt install iverilog gtkwave
 
-# Mac
+# MacBook Air
 $ brew install icarus-verilog gtkwave
 ```
 
@@ -61,3 +61,8 @@ $ docker pull yutaronishiyama/riscv-chisel-book:latest
 ```bash
 $ docker run -it -v ./riscv-chisel:/src riscv-chisel
 ```
+
+### MikanOS
+『[ゼロからの OS 自作入門](https://book.mynavi.jp/ec/products/detail/id=121220)』で制作する MikanOS は x64 環境を想定して設計されているため、ARM ベースの MacBook Air 上では動きません。
+そのため、[MikanOS のビルド手順](https://github.com/uchan-nos/mikanos-build/) を参考にWSL 上に環境を構築します。
+
