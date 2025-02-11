@@ -1,6 +1,6 @@
 `include "fulladder.sv"
 
-module adder
+module ripple_carry_adder
     #(parameter nbit = 32)
     (
         input  logic [(nbit - 1):0] a, b,

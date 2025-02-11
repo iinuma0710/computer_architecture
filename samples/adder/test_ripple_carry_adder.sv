@@ -1,12 +1,12 @@
-`include "adder.sv"
+`include "ripple_carry_adder.sv"
 
-module test_halfadder();
+module test_ripple_carry_adder();
     logic [1:0] a, b;
     logic [1:0] s;
     logic       cout;
 
     // 2ビット加算器のインスタンスを作成
-    adder #(.nbit(2)) _adder (.a(a), .b(b), .s(s), .cout(cout));
+    ripple_carry_adder #(.nbit(2)) _adder (.a(a), .b(b), .s(s), .cout(cout));
 
     initial begin
         $display("a[1:0] b[1:0] || cout s[1:0]");
