@@ -1,0 +1,14 @@
+services:
+  mikanos_cpp:
+    build:
+      context: .
+      dockerfile: ./mikanos_cpp/Dockerfile
+    container_name: mikanos_cpp_container
+    environment:
+      - TZ=Asia/Tokyo
+      - DISPLAY=host.docker.internal:0
+    tty: true
+    privileged: true
+    volumes:
+      - ./mikanos_cpp:/app
+    working_dir: /app
