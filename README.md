@@ -25,7 +25,7 @@ CPU・OS の自作をはじめ、低レイヤのお勉強用リポジトリ
 
 ## 環境構築
 
-基本的には WSL 上の Ubuntu か Macbook Air M1 上で動かします。
+WSL 上の Ubuntu で動かすことを想定しています。
 
 ### Verilog・GTKWave
 
@@ -35,9 +35,6 @@ Icarus Verilog と GTKWave をインストールします。
 # Ubuntu
 $ sudo apt update
 $ sudo apt install iverilog gtkwave
-
-# MacBook Air
-$ brew install icarus-verilog gtkwave
 ```
 
 ### Chisel
@@ -63,6 +60,6 @@ $ docker run -it -v ./riscv-chisel:/src riscv-chisel
 ```
 
 ### MikanOS
-『[ゼロからの OS 自作入門](https://book.mynavi.jp/ec/products/detail/id=121220)』で制作する MikanOS は x64 環境を想定して設計されているため、ARM ベースの MacBook Air 上では動きません。
-そのため、[MikanOS のビルド手順](https://github.com/uchan-nos/mikanos-build/) を参考にWSL 上に環境を構築します。
+『[ゼロからの OS 自作入門](https://book.mynavi.jp/ec/products/detail/id=121220)』の [MikanOS のビルド手順](https://github.com/uchan-nos/mikanos-build/) を参考にWSL 上に環境を構築します。
+
 
