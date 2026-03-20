@@ -19,7 +19,7 @@ CPU・OS の自作をはじめ、低レイヤのお勉強用リポジトリ
 - 森岡澄夫 (2012)『[LSI・FPGA の回路アーキテクチャ設計法](https://shop.cqpub.co.jp/detail/2611/)』CQ 出版社
 - 木村真也 (2006)『[わかる VerilogHDL 入門](https://shop.cqpub.co.jp/hanbai/books/37/37561.htm)』CQ 出版社
 
-### OS 　自作
+### OS 自作
 
 - 内田公太 (2021)『[ゼロからの OS 自作入門](https://book.mynavi.jp/ec/products/detail/id=121220)』マイナビブックス
 

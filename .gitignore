@@ -1,4 +1,6 @@
-edk2
+mikanos/edk2/*
+# !mikanos/edk2/Conf/target.txt
+# !mikanos/edk2/Conf/tools_def.txt
 
 disk.img
 *.efi
