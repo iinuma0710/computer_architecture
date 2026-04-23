@@ -1,0 +1,16 @@
+services:
+  riscv:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: riscv_container
+    tty: true
+    stdin_open: true
+    privileged: true
+    environment:
+      DISPLAY: ${DISPLAY}
+      QT_X11_NO_MITSHM: "1"
+    volumes:
+      - ./chisel:/work/riscv/chisel
+      - ./verilog:/work/riscv/verilog
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
