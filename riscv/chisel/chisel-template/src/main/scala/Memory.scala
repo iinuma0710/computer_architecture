@@ -1,4 +1,4 @@
-package fetch
+package rv32cpu
 
 import java.io.File
 import chisel3._

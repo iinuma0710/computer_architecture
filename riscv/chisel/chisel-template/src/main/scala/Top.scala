@@ -1,4 +1,4 @@
-package fetch
+package rv32cpu
 
 import chisel3._
 import chisel3.util._
