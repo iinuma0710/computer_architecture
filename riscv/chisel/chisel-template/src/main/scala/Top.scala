@@ -15,6 +15,7 @@ class Top extends Module {
 
     // core と memory の io を一括接続
     core.io.imem <> memory.io.imem
+    core.io.dmem <> memory.io.dmem
 
     io.exit := core.io.exit
 }

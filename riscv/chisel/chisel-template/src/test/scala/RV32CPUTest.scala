@@ -19,6 +19,9 @@ class HexTest extends AnyFlatSpec {
             while (!c.io.exit.peek().litToBoolean) {
                 c.clock.step(1)
             }
+
+            // 確認用の printf を表示させるため 1 サイクル待つ
+            c.clock.step(1)
         }
     }
 }
