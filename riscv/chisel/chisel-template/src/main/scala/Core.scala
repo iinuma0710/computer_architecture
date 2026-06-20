@@ -43,8 +43,10 @@ class Core extends Module {
     val rs2_data = Mux((rs2_addr =/= 0.U(WORD_LEN.W)), regfile(rs2_addr), 0.U(WORD_LEN.W))
 
     // 即値を符号拡張で32ビットに変換
-    val imem_i = inst(31, 20)
-    val imem_i_sext = Cat(Fill(20, imem_i(11)), imem_i)
+    val imm_i = inst(31, 20)
+    val imm_i_sext = Cat(Fill(20, imm_i(11)), imm_i)
+    val imm_s = Cat(inst(31, 25), inst(11, 7))
+    val imm_s_sext = Cat(Fill(20, imm_s(11)), imm_s)
 
     //********************************************
     // 実行 (EX) ステージ 
@@ -52,7 +54,8 @@ class Core extends Module {
     
     // MuxCase で ALU を実装
     val alu_out = MuxCase(0.U(WORD_LEN.W), Seq(
-        (inst === LW) -> (rs1_data + imem_i_sext)   // LW 命令: メモリアドレスの計算
+        (inst === LW) -> (rs1_data + imm_i_sext),  // LW 命令: 読み込み元のメモリアドレスの計算
+        (inst === SW) -> (rs1_data + imm_s_sext)   // SW 命令: 書き込み先のメモリアドレスの計算
     ))
 
     //********************************************
@@ -61,6 +64,10 @@ class Core extends Module {
 
     // io.dmem を通してメモリにアドレスを渡す
     io.dmem.addr := alu_out
+
+    // 書き込み可否信号と書き込むデータをメモリのポートに渡す
+    io.dmem.wen   := (inst === SW)
+    io.dmem.wdata := rs2_data
 
     //********************************************
     // ライトバック (WB) ステージ 
@@ -79,10 +86,12 @@ class Core extends Module {
     printf(p"wb_addr   : $wb_addr\n")
     printf(p"rs1_data  : 0x${Hexadecimal(rs1_data)}\n")
     printf(p"rs2_data  : 0x${Hexadecimal(rs2_data)}\n")
-    printf(p"wb_data   : 0x${Hexadecimal(wb_data)}\n") // 追加
+    printf(p"wb_data   : 0x${Hexadecimal(wb_data)}\n")
     printf(p"dmem.addr : ${io.dmem.addr}\n")
+    printf(p"dmem.wen  : ${io.dmem.wen}\n")
+    printf(p"dmem.wdata: 0x${Hexadecimal(io.dmem.wdata)}\n")
     printf("----------\n")
 
     // プログラムを終了判定
-    io.exit := (inst === 0x14131211.U(WORD_LEN.W))
+    io.exit := (inst === 0x00602823.U(WORD_LEN.W))
 }
