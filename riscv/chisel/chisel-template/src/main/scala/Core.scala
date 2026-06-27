@@ -54,8 +54,16 @@ class Core extends Module {
     
     // MuxCase で ALU を実装
     val alu_out = MuxCase(0.U(WORD_LEN.W), Seq(
-        (inst === LW) -> (rs1_data + imm_i_sext),  // LW 命令: 読み込み元のメモリアドレスの計算
-        (inst === SW) -> (rs1_data + imm_s_sext)   // SW 命令: 書き込み先のメモリアドレスの計算
+        (inst === LW || inst === ADDI) -> (rs1_data + imm_i_sext),  // LW, ADDI
+        (inst === SW)                  -> (rs1_data + imm_s_sext),  // SW
+        (inst === ADD)                 -> (rs1_data + rs2_data),    // ADD
+        (inst === SUB)                 -> (rs1_data - rs2_data)     // SUB
+        (inst === AND)                 -> (rs1_data & rs2_data)     // AND
+        (inst === OR)                  -> (rs1_data | rs2_data)     // OR
+        (inst === XOR)                 -> (rs1_data ^ rs2_data)     // XOR
+        (inst === ANDI)                -> (rs1_data & imm_i_sext)   // ANDI
+        (inst === ORI)                 -> (rs1_data | imm_i_sext)   // ORI
+        (inst === XORI)                -> (rs1_data ^ imm_i_sext)   // XORI
     ))
 
     //********************************************
@@ -73,8 +81,14 @@ class Core extends Module {
     // ライトバック (WB) ステージ 
     //********************************************
 
-    val wb_data = io.dmem.rdata
-    when(inst === LW) {
+    val wb_data = MuxCase(alu_out, Seq(
+        (inst === LW) -> io.dmem.rdata
+    ))
+    when(
+        inst === LW || inst === ADD || inst === ADDI || inst === SUB ||
+        inst === AND || inst === OR || inst === XOR || inst === ANDI ||
+        inst === ORI || inst ===XORI
+    ) {
         regfile(wb_addr) := wb_data
     }
 
