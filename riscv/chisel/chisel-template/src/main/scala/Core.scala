@@ -64,6 +64,12 @@ class Core extends Module {
             ANDI -> List(ALU_AND, OP1_RS1, OP2_IMI, MEM_X, REN_S, WB_ALU),
             ORI  -> List(ALU_OR,  OP1_RS1, OP2_IMI, MEM_X, REN_S, WB_ALU),
             XORI -> List(ALU_XOR, OP1_RS1, OP2_IMI, MEM_X, REN_S, WB_ALU),
+            SLL  -> List(ALU_SLL, OP1_RS1, OP2_RS2, MEM_X, REN_S, WB_ALU),
+            SRL  -> List(ALU_SRL, OP1_RS1, OP2_RS2, MEM_X, REN_S, WB_ALU),
+            SRA  -> List(ALU_SRA, OP1_RS1, OP2_RS2, MEM_X, REN_S, WB_ALU),
+            SLLI -> List(ALU_SLL, OP1_RS1, OP2_IMI, MEM_X, REN_S, WB_ALU),
+            SRLI -> List(ALU_SRL, OP1_RS1, OP2_IMI, MEM_X, REN_S, WB_ALU),
+            SRAI -> List(ALU_SRA, OP1_RS1, OP2_IMI, MEM_X, REN_S, WB_ALU),
         )
     )
     val exe_fun :: op1_sel :: op2_sel :: mem_wen ::rf_wen :: wb_sel :: Nil = csignals
@@ -88,6 +94,9 @@ class Core extends Module {
         (exe_fun == ALU_AND) -> (op1_data & op2_data),
         (exe_fun == ALU_OR)  -> (op1_data | op2_data),
         (exe_fun == ALU_XOR) -> (op1_data ^ op2_data),
+        (exe_fun == ALU_SLL) -> (op1_data << op2_data(4, 0))(31, 0),
+        (exe_fun == ALU_SRL) -> (op1_data >> op2_data(4, 0)).asUInt(),
+        (exe_fun == ALU_SRA) -> (op1_data.asSInt() >> op2_data(4, 0)).asUInt(),
     ))  
     
     //********************************************
